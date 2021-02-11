@@ -21,6 +21,7 @@ coreboot/bootsplash.bmp: coreboot bootsplash.bmp
 	cp bootsplash.bmp coreboot/
 
 coreboot/purism-blobs: coreboot
+	rm -rf coreboot/purism-blobs
 	git clone https://source.puri.sm/coreboot/purism-blobs.git coreboot/purism-blobs
 	cd coreboot/purism-blobs &&  \
 		git checkout 557176e7
