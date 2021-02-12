@@ -24,8 +24,13 @@ docker-image: Dockerfile
 firmware.rom: coreboot/build/coreboot.rom
 	cp coreboot/build/coreboot.rom firmware.rom
 	chmod 777 firmware.rom
+	#
+	# -> BUILD DONE
+	# 
 	# you can now flash the firmware: 
 	# $ ./flash.sh firmware.rom
+	# 
+	#
 
 coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/purism-blobs coreboot/configs/defconfig coreboot/util/crossgcc/xgcc
 	make -C coreboot CPUS=14
