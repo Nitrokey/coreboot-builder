@@ -9,21 +9,8 @@ DOCKERDIR=$(BASEDIR)
 #DOCKERUIDGID=--user $(shell id -u):$(shell id -g)
 DOCKERUIDGID=
 
-run-build: docker-image
-	-docker stop $(CONTNAME)
-	-docker rm $(CONTNAME)
-	docker run -ti $(DOCKERUIDGID) --name $(CONTNAME) --mount type=bind,source=$(SRCDIR),target=/build $(CONTNAME)-img make -C /build firmware.rom
-
-docker-image: Dockerfile
-	docker build -t $(CONTNAME)-img .
-	touch $@
-
-
-
-
-firmware.rom: coreboot/build/coreboot.rom
-	cp coreboot/build/coreboot.rom firmware.rom
-	chmod 777 firmware.rom
+firmware.rom: raw_firmware.rom 
+	cp raw_firmware.rom firmware.rom
 	#
 	# -> BUILD DONE
 	# 
@@ -32,11 +19,22 @@ firmware.rom: coreboot/build/coreboot.rom
 	# 
 	#
 
+docker-image: Dockerfile
+	docker build -t $(CONTNAME)-img .
+	touch $@
+
+raw_firmware.rom: docker-image
+	-docker stop $(CONTNAME)
+	-docker rm $(CONTNAME)
+	docker run -ti $(DOCKERUIDGID) --name $(CONTNAME) --mount type=bind,source=$(SRCDIR),target=/build $(CONTNAME)-img make -C /build coreboot/build/coreboot.rom
+	cp coreboot/build/coreboot.rom raw_firmware.rom
+	chmod 777 raw_firmware.rom
+
 coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/purism-blobs coreboot/configs/defconfig coreboot/util/crossgcc/xgcc
 	make -C coreboot CPUS=14
 	
 coreboot/util/crossgcc/xgcc: coreboot
-	make -C coreboot crossgcc CPUS=14
+	make -C coreboot crossgcc-i386 CPUS=14
 
 coreboot:
 	git clone https://review.coreboot.org/coreboot coreboot
@@ -58,8 +56,11 @@ coreboot/configs/defconfig: coreboot defconfig
 	cp defconfig coreboot/configs/defconfig
 	make -C coreboot defconfig
 
+clean-all: clean
+	rm -rf coreboot docker-image
+
 clean:
-	rm -rf coreboot
-	rm -f firmware.rom
+	rm -f firmware.rom raw_firmware.rom
+	rm -f run-build 
 
 
