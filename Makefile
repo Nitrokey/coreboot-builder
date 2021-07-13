@@ -26,7 +26,7 @@ docker-image: Dockerfile
 raw_firmware.rom: docker-image
 	-docker stop $(CONTNAME)
 	-docker rm $(CONTNAME)
-	docker run -ti $(DOCKERUIDGID) --name $(CONTNAME) --mount type=bind,source=$(SRCDIR),target=/build $(CONTNAME)-img make -C /build coreboot/build/coreboot.rom
+	docker run -i $(DOCKERUIDGID) --name $(CONTNAME) --mount type=bind,source=$(SRCDIR),target=/build $(CONTNAME)-img make -C /build coreboot/build/coreboot.rom
 	cp coreboot/build/coreboot.rom raw_firmware.rom
 	chmod 777 raw_firmware.rom
 
