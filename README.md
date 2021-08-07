@@ -9,4 +9,4 @@ To run the build, simply execute:
 make
 ```
 
-The outcome shall be a flashable `firmware.rom`.
+The outcome shall be a flashable `coreboot-[version].rom`.

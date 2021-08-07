@@ -4,18 +4,20 @@
 BASEDIR=$(shell pwd)
 CONTNAME=coreboot-builder
 SRCDIR=$(BASEDIR)
+COREBOOT_VERSION = 4.13
+OUTPUT_NAME = coreboot-$(COREBOOT_VERSION).rom
 
 DOCKERDIR=$(BASEDIR)
 #DOCKERUIDGID=--user $(shell id -u):$(shell id -g)
 DOCKERUIDGID=
 
 firmware.rom: raw_firmware.rom 
-	cp raw_firmware.rom firmware.rom
+	cp raw_firmware.rom $(OUTPUT_NAME)
 	#
 	# -> BUILD DONE
 	# 
 	# you can now flash the firmware: 
-	# $ ./flash.sh firmware.rom
+	# $ ./flash.sh coreboot-[version].rom
 	# 
 	#
 
@@ -40,7 +42,7 @@ coreboot:
 	git clone https://review.coreboot.org/coreboot coreboot
 	cd coreboot && \
 		git submodule update --init --checkout && \
-		git checkout 4.13
+		git checkout $(COREBOOT_VERSION)
 
 coreboot/bootsplash.bmp: coreboot bootsplash.bmp
 	cp bootsplash.bmp coreboot/
