@@ -19,9 +19,9 @@ variables:
   COMMON_GITHUB_RELEASE: "false"
   COMMON_UPLOAD_FILES: "true"
   DEVICE_FOLDER: "nitropc"
-  UPLOAD_FOLDER: "coreboot"
+  UPLOAD_FOLDER: "tianocore"
 
-build-coreboot:
+build-tianocore:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
@@ -30,7 +30,7 @@ build-coreboot:
   script:
     - make
     - mkdir -p artifacts
-    - cp coreboot*.rom artifacts/
+    - cp tianocore*.rom artifacts/
   after_script:
     - wget $icon_server/checkmark/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHA/$CI_JOB_NAME/$CI_JOB_STATUS/${CI_JOB_URL#*/*/*/}
   artifacts:
