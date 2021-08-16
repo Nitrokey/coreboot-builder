@@ -5,7 +5,7 @@ BASEDIR=$(shell pwd)
 CONTNAME=coreboot-builder
 SRCDIR=$(BASEDIR)
 COREBOOT_VERSION = 4.13
-OUTPUT_NAME = coreboot-$(COREBOOT_VERSION).rom
+OUTPUT_NAME = tianocore-$(COREBOOT_VERSION).rom
 
 DOCKERDIR=$(BASEDIR)
 #DOCKERUIDGID=--user $(shell id -u):$(shell id -g)
@@ -17,7 +17,7 @@ firmware.rom: raw_firmware.rom
 	# -> BUILD DONE
 	# 
 	# you can now flash the firmware: 
-	# $ ./flash.sh coreboot-[version].rom
+	# $ ./flash.sh tianocore-[version].rom
 	# 
 	#
 
