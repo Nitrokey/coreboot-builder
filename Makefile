@@ -33,6 +33,10 @@ raw_firmware.rom: docker-image
 	chmod 777 raw_firmware.rom
 
 coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/purism-blobs coreboot/configs/defconfig coreboot/util/crossgcc/xgcc
+
+	rm coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/devicetree.cb 
+
+	cp devicetree.cb coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/
 	make -C coreboot CPUS=14
 	
 coreboot/util/crossgcc/xgcc: coreboot
