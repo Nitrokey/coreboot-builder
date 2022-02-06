@@ -11,7 +11,21 @@ DOCKERDIR=$(BASEDIR)
 #DOCKERUIDGID=--user $(shell id -u):$(shell id -g)
 DOCKERUIDGID=
 
-firmware.rom: raw_firmware.rom 
+all: 
+ifndef TARGET
+	@echo "###############################################"
+	@echo "Make sure you run make with TARGET=<yourtarget>"
+	@echo "###############################################"
+	@false
+else
+	make TARGET=$(TARGET) firmware-$(TARGET).rom	
+endif
+
+defconfig: $(TARGET)-defconfig
+	cp $(TARGET)-defconfig defconfig
+
+
+firmware-$(TARGET).rom: raw_firmware.rom 
 	cp raw_firmware.rom $(OUTPUT_NAME)
 	#
 	# -> BUILD DONE
@@ -25,7 +39,7 @@ docker-image: Dockerfile
 	docker build -t $(CONTNAME)-img .
 	touch $@
 
-raw_firmware.rom: docker-image
+raw_firmware.rom: docker-image defconfig
 	-docker stop $(CONTNAME)
 	-docker rm $(CONTNAME)
 	docker run -i $(DOCKERUIDGID) --name $(CONTNAME) --mount type=bind,source=$(SRCDIR),target=/build $(CONTNAME)-img make -C /build coreboot/build/coreboot.rom
@@ -68,5 +82,6 @@ clean-all: clean
 clean:
 	rm -f firmware.rom raw_firmware.rom
 	rm -f run-build 
+	rm -f defconfig
 
 

@@ -28,7 +28,7 @@ build-tianocore:
     - lxc
   stage: build
   script:
-    - make
+    - make TARGET=nitropc
     - mkdir -p artifacts
     - cp tianocore*.rom artifacts/
   after_script:
