@@ -21,7 +21,7 @@ variables:
   DEVICE_FOLDER: "nitropc"
   UPLOAD_FOLDER: "tianocore"
 
-build-tianocore:
+build-nitropc:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
@@ -30,7 +30,7 @@ build-tianocore:
   script:
     - make TARGET=nitropc
     - mkdir -p artifacts
-    - cp tianocore*.rom artifacts/
+    - cp firmware-nitropc.rom artifacts/
   after_script:
     - wget $icon_server/checkmark/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHA/$CI_JOB_NAME/$CI_JOB_STATUS/${CI_JOB_URL#*/*/*/}
   artifacts:
