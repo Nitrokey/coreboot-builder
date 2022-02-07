@@ -5,7 +5,6 @@ BASEDIR=$(shell pwd)
 CONTNAME=coreboot-builder
 SRCDIR=$(BASEDIR)
 COREBOOT_VERSION = 4.13
-OUTPUT_NAME = tianocore-$(COREBOOT_VERSION).rom
 
 DOCKERDIR=$(BASEDIR)
 #DOCKERUIDGID=--user $(shell id -u):$(shell id -g)
@@ -26,7 +25,7 @@ defconfig: $(TARGET)-defconfig
 
 
 firmware-$(TARGET).rom: raw_firmware.rom 
-	cp raw_firmware.rom $(OUTPUT_NAME)
+	cp raw_firmware.rom firmware-$(TARGET).rom
 	#
 	# -> BUILD DONE
 	# 
@@ -42,14 +41,19 @@ docker-image: Dockerfile
 raw_firmware.rom: docker-image defconfig
 	-docker stop $(CONTNAME)
 	-docker rm $(CONTNAME)
-	docker run -i $(DOCKERUIDGID) --name $(CONTNAME) --mount type=bind,source=$(SRCDIR),target=/build $(CONTNAME)-img make -C /build coreboot/build/coreboot.rom
+	docker run -i $(DOCKERUIDGID) --name $(CONTNAME) --mount type=bind,source=$(SRCDIR),target=/build $(CONTNAME)-img make -C /build TARGET=$(TARGET) coreboot/build/coreboot.rom 
 	cp coreboot/build/coreboot.rom raw_firmware.rom
 	chmod 777 raw_firmware.rom
 
 coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/purism-blobs coreboot/configs/defconfig coreboot/util/crossgcc/xgcc
 
-	rm coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/devicetree.cb 
+  # nitrowall
+	mkdir -p coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
+	cp vgabios.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
+	cp vgabios.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/vgabios_c0.bin
 
+	# nitropc
+	rm coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/devicetree.cb 
 	cp devicetree.cb coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/
 	make -C coreboot CPUS=14
 	
