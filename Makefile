@@ -30,7 +30,7 @@ firmware-$(TARGET).rom: raw_firmware.rom
 	# -> BUILD DONE
 	# 
 	# you can now flash the firmware: 
-	# $ ./flash.sh tianocore-[version].rom
+	# $ ./flash.sh firmware-$(TARGET).rom
 	# 
 	#
 
@@ -38,23 +38,29 @@ docker-image: Dockerfile
 	docker build -t $(CONTNAME)-img .
 	touch $@
 
-raw_firmware.rom: docker-image defconfig
+blobs:
+	git clone git@github.com:Nitrokey/firmware-blobs.git blobs
+
+raw_firmware.rom: docker-image defconfig blobs
 	-docker stop $(CONTNAME)
 	-docker rm $(CONTNAME)
 	docker run -i $(DOCKERUIDGID) --name $(CONTNAME) --mount type=bind,source=$(SRCDIR),target=/build $(CONTNAME)-img make -C /build TARGET=$(TARGET) coreboot/build/coreboot.rom 
 	cp coreboot/build/coreboot.rom raw_firmware.rom
 	chmod 777 raw_firmware.rom
 
-coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/purism-blobs coreboot/configs/defconfig coreboot/util/crossgcc/xgcc
+coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/purism-blobs coreboot/configs/defconfig coreboot/util/crossgcc/xgcc blobs
 
   # nitrowall
 	mkdir -p coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
-	cp vgabios.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
-	cp vgabios.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/vgabios_c0.bin
+	cp blobs/nitrowall/vgabios.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
+	cp blobs/nitrowall/vgabios.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/vgabios_c0.bin
+	cp blobs/nitrowall/fd.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
+	cp blobs/nitrowall/me.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
 
 	# nitropc
 	rm coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/devicetree.cb 
 	cp devicetree.cb coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/
+
 	make -C coreboot CPUS=14
 	
 coreboot/util/crossgcc/xgcc: coreboot
@@ -82,9 +88,10 @@ coreboot/configs/defconfig: coreboot defconfig
 
 clean-all: clean
 	rm -rf coreboot docker-image
+	rm -rf blobs
 
 clean:
-	rm -f firmware.rom raw_firmware.rom
+	rm -f firmware.rom raw_firmware.rom firmware-nitrowall.rom firmware-nitropc.rom
 	rm -f run-build 
 	rm -f defconfig
 
