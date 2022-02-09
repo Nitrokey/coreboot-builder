@@ -10,7 +10,6 @@ variables:
   GIT_STRATEGY: clone     #This seems to have no effect also set in webinterface
   GIT_DEPTH: 0          #This seems to have no effect also set in webinterface
   GIT_SUBMODULE_STRATEGY: recursive #This seems to have no effect also set in webinterfac
-  SCRIPTS_REPO: git@git.dotplex.com:nitrokey/gitlab-ci.git
   REPO_USER: nitrokey
   REPO_NAME: coreboot-builder
   MAIN_BRANCH: main
