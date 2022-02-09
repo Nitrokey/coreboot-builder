@@ -39,7 +39,7 @@ docker-image: Dockerfile
 	touch $@
 
 blobs:
-	git clone git@github.com:Nitrokey/firmware-blobs.git blobs
+	git clone https://github.com/Nitrokey/firmware-blobs.git blobs
 
 raw_firmware.rom: docker-image defconfig blobs
 	-docker stop $(CONTNAME)
