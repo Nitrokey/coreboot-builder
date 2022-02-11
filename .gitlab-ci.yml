@@ -44,7 +44,7 @@ build-nitrowall:
     - lxc
   stage: build
   script:
-    - make TARGET=nitrowall
+    - make TARGET=nitrowall COREBOOT_VERSION=4.15
     - mkdir -p artifacts
     - cp firmware-nitrowall.rom artifacts/
   after_script:

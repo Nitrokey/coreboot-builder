@@ -4,7 +4,7 @@
 BASEDIR=$(shell pwd)
 CONTNAME=coreboot-builder
 SRCDIR=$(BASEDIR)
-COREBOOT_VERSION = 4.13
+COREBOOT_VERSION=4.13
 
 DOCKERDIR=$(BASEDIR)
 #DOCKERUIDGID=--user $(shell id -u):$(shell id -g)
@@ -17,7 +17,7 @@ ifndef TARGET
 	@echo "###############################################"
 	@false
 else
-	make TARGET=$(TARGET) firmware-$(TARGET).rom	
+	make TARGET=$(TARGET) COREBOOT_VERSION=$(COREBOOT_VERSION) firmware-$(TARGET).rom	
 endif
 
 defconfig: $(TARGET)-defconfig
@@ -44,7 +44,7 @@ blobs:
 raw_firmware.rom: docker-image defconfig blobs
 	-docker stop $(CONTNAME)
 	-docker rm $(CONTNAME)
-	docker run -i $(DOCKERUIDGID) --name $(CONTNAME) --mount type=bind,source=$(SRCDIR),target=/build $(CONTNAME)-img make -C /build TARGET=$(TARGET) coreboot/build/coreboot.rom 
+	docker run -i $(DOCKERUIDGID) --name $(CONTNAME) --mount type=bind,source=$(SRCDIR),target=/build $(CONTNAME)-img make -C /build TARGET=$(TARGET) COREBOOT_VERSION=$(COREBOOT_VERSION) coreboot/build/coreboot.rom 
 	cp coreboot/build/coreboot.rom raw_firmware.rom
 	chmod 777 raw_firmware.rom
 
@@ -52,8 +52,8 @@ coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/purism-blobs coreb
 
   # nitrowall
 	mkdir -p coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
-	cp blobs/nitrowall/vgabios.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
-	cp blobs/nitrowall/vgabios.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/vgabios_c0.bin
+	cp blobs/nitrowall/vgabios.bin coreboot/
+	cp blobs/nitrowall/vgabios.bin coreboot/vgabios_c0.bin
 	cp blobs/nitrowall/fd.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
 	cp blobs/nitrowall/me.bin coreboot/3rdparty/blobs/mainboard/protectli/vault_bsw/
 
