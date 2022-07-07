@@ -1,5 +1,6 @@
 
-COREBOOT_REF = tags/4.13
+COREBOOT_REF = 02a1f1d114ab397f18c2d71c4fed22fbbbca858f
+# ref: tags/4.13
 
 coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/configs/defconfig coreboot/util/crossgcc/xgcc blobs-update
 	rm coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/devicetree.cb 

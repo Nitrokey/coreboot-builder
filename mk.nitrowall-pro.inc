@@ -1,11 +1,13 @@
 
-COREBOOT_REF = dasharo/protectli_vault_kbl_v1.0.14
+COREBOOT_REF = 9f221f6566e7bd3d1170903a4211a0ecc39c564c 
+# ref: tags/protectli_vault_kbl_v1.0.14
 
 coreboot/build/coreboot.rom: coreboot/bootsplash.jpg coreboot/configs/defconfig coreboot/util/crossgcc/xgcc blobs-update
 	
-	cp blobs/nitrowall-pro/{fd,me,vgabios,vgabios2}.bin coreboot/
+	cp blobs/nitrowall-pro/*.bin coreboot/
 	cd coreboot && \
-		git checkout tags/4.17 -- payloads/external/SeaBIOS/Makefile
+		git checkout 71899c9fc9697435a1309db40cfd05f0180065eb -- payloads/external/SeaBIOS/Makefile
+	# ref: tags/4.17
 
 	make -C coreboot CPUS=$(CPU_COUNT)
 

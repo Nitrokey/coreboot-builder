@@ -1,5 +1,6 @@
 
-COREBOOT_REF = tags/4.16
+COREBOOT_REF = 7f69d690d22efb4d0c9e79acd94bf138a3a81b47 
+# ref: tags/4.16
 
 coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/configs/defconfig coreboot/util/crossgcc/xgcc blobs-update
 	cp blobs/nitrowall/vgabios.bin coreboot/
