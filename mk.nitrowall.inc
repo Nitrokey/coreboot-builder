@@ -6,7 +6,6 @@ coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/configs/defconfig 
 	cp blobs/nitrowall/vgabios.bin coreboot/vgabios_c0.bin
 	cp blobs/nitrowall/fd.bin coreboot/
 	cp blobs/nitrowall/me.bin coreboot/
-	cp bootsplash.bmp coreboot/
 	
 	make -C coreboot CPUS=$(CPU_COUNT)
 

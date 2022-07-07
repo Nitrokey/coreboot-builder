@@ -66,10 +66,9 @@ raw_firmware.rom: docker-image coreboot/configs/defconfig blobs-update
 coreboot/util/crossgcc/xgcc: coreboot-update
 	make -C coreboot crossgcc-i386 CPUS=$(CPU_COUNT)
 
-coreboot/bootsplash.bmp: bootsplash.bmp coreboot-update
+coreboot/bootsplash.bmp: blobs/common/bootsplash.bmp coreboot-update blobs-update
 	cp $< $@
-
-coreboot/bootsplash.jpg: bootsplash.jpg coreboot-update
+coreboot/bootsplash.jpg: blobs/common/bootsplash.jpg coreboot-update blobs-update
 	cp $< $@
 
 coreboot:
@@ -79,7 +78,6 @@ coreboot:
 		git fetch dasharo && \
 		git fetch origin 
 
-		#git --git-dir=coreboot submodule update --init --checkout && 
 
 .PHONY: coreboot-update
 coreboot-update: coreboot
