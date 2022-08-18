@@ -14,7 +14,7 @@ DOCKERUIDGID = --user $(shell id -u):$(shell id -g)
 #DOCKERUIDGID=
 
 COREBOOT_ORIGIN = https://review.coreboot.org/coreboot
-COREBOOT_DASHARO = git@github.com:Dasharo/coreboot.git
+COREBOOT_DASHARO = https://github.com/Dasharo/coreboot.git
 
 all: 
 	@echo "no default target"
@@ -54,7 +54,7 @@ raw_firmware.rom: docker-image coreboot/configs/defconfig blobs-update
 	-docker stop $(CONTNAME)
 	-docker rm $(CONTNAME)
 	
-	docker run -it $(DOCKERUIDGID) --name $(CONTNAME) \
+	docker run $(DOCKERUIDGID) --name $(CONTNAME) \
 		--mount type=bind,source=$(SRCDIR),target=/build \
 		$(CONTNAME)-img \
 		make -C /build TARGET=$(TARGET) coreboot/build/coreboot.rom 
