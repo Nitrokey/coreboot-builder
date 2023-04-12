@@ -47,7 +47,7 @@ blobs:
 	git clone https://github.com/Nitrokey/firmware-blobs.git blobs
 .PHONY: blobs-update
 blobs-update: blobs
-	cd blobs && git pull
+	cd blobs && git pull 
 
 raw_firmware.rom: docker-image coreboot/configs/defconfig blobs-update
 
