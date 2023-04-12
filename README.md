@@ -1,12 +1,8 @@
 # coreboot-builder
-Builder Repository for Coreboot with Tianocore Firmware
+Builder Repository for Nitrokey Coreboot Devices
 
-As of now this repository supports building the complete firmware for
-Nitrokey NitroPC utilizing coreboot and tianocore.
-
-To run the build, simply execute:
+Run:
 ```
 make
 ```
-
-The outcome shall be a flashable `coreboot-[version].rom`.
+to see which devices can be built.
