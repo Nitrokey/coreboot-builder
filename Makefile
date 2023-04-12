@@ -85,6 +85,9 @@ coreboot-update: coreboot
 		git reset --hard && \
 		git checkout $(COREBOOT_REF) 
 
+distclean:
+	make -C coreboot distclean
+
 clean-all: clean
 	rm -rf coreboot docker-image
 	rm -rf blobs
