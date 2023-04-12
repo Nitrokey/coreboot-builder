@@ -19,7 +19,7 @@ COREBOOT_DASHARO = https://github.com/Dasharo/coreboot.git
 all: 
 	@echo "no default target"
 	@echo "choose any of: "
-	@echo "  nitropc, nitrowall, nitrowall-pro"
+	@echo "  nitropc, nitrowall, nitrowall-pro, nitropad-x"
 
 nitropc:
 	$(MAKE) TARGET=nitropc firmware-nitropc.rom	
@@ -27,11 +27,13 @@ nitrowall:
 	$(MAKE) TARGET=nitrowall firmware-nitrowall.rom	
 nitrowall-pro:
 	$(MAKE) TARGET=nitrowall-pro firmware-nitrowall-pro.rom	
+nitropad-nv41:
+	$(MAKE) TARGET=nitropad-nv41 firmware-nitropad-nv41.rom	
 
 coreboot/configs/defconfig: coreboot-update $(TARGET)-defconfig
 	cp $(TARGET)-defconfig coreboot/configs/defconfig
 
--include mk.$(TARGET).inc
+-include $(TARGET).mk
 
 firmware-$(TARGET).rom: raw_firmware.rom 
 	cp raw_firmware.rom firmware-$(TARGET).rom
