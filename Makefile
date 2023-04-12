@@ -19,7 +19,7 @@ COREBOOT_DASHARO = https://github.com/Dasharo/coreboot.git
 all: 
 	@echo "no default target"
 	@echo "choose any of: "
-	@echo "  nitropc, nitrowall, nitrowall-pro, nitropad-x"
+	@echo "  nitropc, nitrowall, nitrowall-pro, nitropad-nv41"
 
 nitropc:
 	$(MAKE) TARGET=nitropc firmware-nitropc.rom	
