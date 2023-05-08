@@ -29,6 +29,8 @@ nitrowall-pro:
 	$(MAKE) TARGET=nitrowall-pro firmware-nitrowall-pro.rom	
 nitropad-nv41:
 	$(MAKE) TARGET=nitropad-nv41 firmware-nitropad-nv41.rom	
+nitropad-ns51:
+	$(MAKE) TARGET=nitropad-ns51 firmware-nitropad-ns51.rom	
 
 coreboot/configs/defconfig: coreboot-update $(TARGET)-defconfig
 	cp $(TARGET)-defconfig coreboot/configs/defconfig
