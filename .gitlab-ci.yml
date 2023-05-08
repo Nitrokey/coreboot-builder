@@ -16,7 +16,7 @@ variables:
   COMMON_PULL: "true"
   COMMON_UPLOAD_NIGHTLY: "false"
   COMMON_GITHUB_RELEASE: "false"
-  COMMON_UPLOAD_FILES: "true"
+  COMMON_UPLOAD_FILES: "false"
   DEVICE_FOLDER: "nitropc"
   UPLOAD_FOLDER: "tianocore"
 
