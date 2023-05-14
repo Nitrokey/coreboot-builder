@@ -74,6 +74,25 @@ build-nitropad-nv41:
       - artifacts
     expire_in: 1 hrs
 
+build-nitropad-ns51:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+  tags:
+    - lxc
+  stage: build
+  script:
+    - make docker-image
+    - make nitropad-ns51
+    - mkdir -p artifacts
+    - cp firmware-nitropad-ns51.rom artifacts/
+  after_script:
+    - wget $icon_server/checkmark/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHA/$CI_JOB_NAME/$CI_JOB_STATUS/${CI_JOB_URL#*/*/*/}
+  artifacts:
+    paths:
+      - artifacts
+    expire_in: 1 hrs
+
+
 
 build-nitrowall:
   rules:
