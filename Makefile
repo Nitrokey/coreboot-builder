@@ -97,5 +97,6 @@ clean-all: clean
 clean:
 	rm -f firmware.rom raw_firmware.rom firmware-*.rom
 	rm -f run-build defconfig
+	rm -rf coreboot blobs
 
 
