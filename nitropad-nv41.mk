@@ -1,5 +1,5 @@
 
-COREBOOT_REF = novacustom_nv4x_adl_v1.6.0
+COREBOOT_REF = novacustom_nv4x_adl_v1.7.2
 
 coreboot/build/coreboot.rom: coreboot/configs/defconfig coreboot/util/crossgcc/xgcc blobs-update
 	
