@@ -35,12 +35,9 @@ build-nitropc:
     - make nitropc
     - mkdir -p artifacts
     - cp firmware-nitropc.rom artifacts/
-  after_script:
-    - wget $icon_server/checkmark/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHA/$CI_JOB_NAME/$CI_JOB_STATUS/${CI_JOB_URL#*/*/*/}
   artifacts:
     paths:
       - artifacts
-    expire_in: 1 hrs
 
 build-nitrowall-pro:
   rules:
@@ -53,12 +50,9 @@ build-nitrowall-pro:
     - make nitrowall-pro
     - mkdir -p artifacts
     - cp firmware-nitrowall-pro.rom artifacts/
-  after_script:
-    - wget $icon_server/checkmark/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHA/$CI_JOB_NAME/$CI_JOB_STATUS/${CI_JOB_URL#*/*/*/}
   artifacts:
     paths:
       - artifacts
-    expire_in: 1 hrs
 
 build-nitropad-nv41:
   rules:
@@ -71,12 +65,9 @@ build-nitropad-nv41:
     - make nitropad-nv41
     - mkdir -p artifacts
     - cp firmware-nitropad-nv41.rom artifacts/
-  after_script:
-    - wget $icon_server/checkmark/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHA/$CI_JOB_NAME/$CI_JOB_STATUS/${CI_JOB_URL#*/*/*/}
   artifacts:
     paths:
       - artifacts
-    expire_in: 1 hrs
 
 build-nitropad-ns51:
   rules:
@@ -89,12 +80,9 @@ build-nitropad-ns51:
     - make nitropad-ns51
     - mkdir -p artifacts
     - cp firmware-nitropad-ns51.rom artifacts/
-  after_script:
-    - wget $icon_server/checkmark/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHA/$CI_JOB_NAME/$CI_JOB_STATUS/${CI_JOB_URL#*/*/*/}
   artifacts:
     paths:
       - artifacts
-    expire_in: 1 hrs
 
 build-nitrowall:
   rules:
@@ -107,9 +95,6 @@ build-nitrowall:
     - make nitrowall
     - mkdir -p artifacts
     - cp firmware-nitrowall.rom artifacts/
-  after_script:
-    - wget $icon_server/checkmark/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHA/$CI_JOB_NAME/$CI_JOB_STATUS/${CI_JOB_URL#*/*/*/}
   artifacts:
     paths:
       - artifacts
-    expire_in: 1 hrs
