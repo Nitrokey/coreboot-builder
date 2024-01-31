@@ -1,9 +1,9 @@
 
-COREBOOT_REF = novacustom_ns5x_adl_v1.6.0
+COREBOOT_REF = novacustom_ns5x_adl_v1.7.2
 
 coreboot/build/coreboot.rom: coreboot/configs/defconfig coreboot/util/crossgcc/xgcc blobs-update
 	
-	cp blobs/nitropad-ns51/*.bin coreboot/
+	cp blobs/nitropad-ns50/*.bin coreboot/
 	cp blobs/common/bootsplash-1080.bmp coreboot/bootsplash.bmp
 	cd coreboot && git checkout $(COREBOOT_REF)
 
