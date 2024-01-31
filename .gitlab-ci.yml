@@ -69,7 +69,7 @@ build-nitropad-nv41:
     paths:
       - artifacts
 
-build-nitropad-ns51:
+build-nitropad-ns50:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
@@ -77,9 +77,9 @@ build-nitropad-ns51:
   stage: build
   script:
     - make docker-image
-    - make nitropad-ns51
+    - make nitropad-ns50
     - mkdir -p artifacts
-    - cp firmware-nitropad-ns51.rom artifacts/
+    - cp firmware-nitropad-ns50.rom artifacts/
   artifacts:
     paths:
       - artifacts
