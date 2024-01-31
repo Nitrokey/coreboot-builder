@@ -1,10 +1,9 @@
 
-COREBOOT_REF = 02a1f1d114ab397f18c2d71c4fed22fbbbca858f
-# ref: tags/4.13
+COREBOOT_REF = 4.22
 
 coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/configs/defconfig coreboot/util/crossgcc/xgcc blobs-update
-	rm coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/devicetree.cb 
-	cp devicetree.cb coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/
+	rm coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/overridetree.cb
+	cp devicetree.cb coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/overridetree.cb
 	cp blobs/nitropc/*	coreboot/
 	
 	make -C coreboot CPUS=$(CPU_COUNT)
