@@ -16,6 +16,8 @@ DOCKERUIDGID = --user $(shell id -u):$(shell id -g)
 COREBOOT_ORIGIN = https://review.coreboot.org/coreboot
 COREBOOT_DASHARO = https://github.com/Dasharo/coreboot.git
 
+BLOBS_COMMIT = cba08e83d8bbd7d3470769afd7dbc8e61d6cd8b5
+
 all: 
 	@echo "no default target"
 	@echo "choose any of: "
@@ -49,7 +51,8 @@ blobs:
 	git clone https://github.com/Nitrokey/firmware-blobs.git blobs
 .PHONY: blobs-update
 blobs-update: blobs
-	cd blobs && git pull 
+	cd blobs && git fetch
+	cd blobs && git checkout $(BLOBS_COMMIT)
 
 raw_firmware.rom: docker-image coreboot/configs/defconfig blobs-update
 
