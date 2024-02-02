@@ -18,6 +18,18 @@ COREBOOT_DASHARO = https://github.com/Dasharo/coreboot.git
 
 BLOBS_COMMIT = cba08e83d8bbd7d3470769afd7dbc8e61d6cd8b5
 
+##
+## switch mechanism for with or without docker 
+##
+DOCKER_RUN := docker run $(DOCKERUIDGID) --name $(CONTNAME) \
+		--mount type=bind,source=$(SRCDIR),target=/build \
+		$(CONTNAME)-img make -C /build
+
+ifeq ($(SKIP_DOCKER),true)
+	DOCKER_RUN := make
+endif
+
+
 all: 
 	@echo "no default target"
 	@echo "choose any of: "
@@ -59,17 +71,11 @@ blobs-update: blobs
 	cd blobs && git fetch
 	cd blobs && git checkout $(BLOBS_COMMIT)
 
-raw_firmware.rom: docker-image coreboot/configs/defconfig blobs-update
+raw_firmware.rom: coreboot/configs/defconfig blobs-update
 
 	make -C coreboot defconfig
 
-	-docker stop $(CONTNAME)
-	-docker rm $(CONTNAME)
-	
-	docker run $(DOCKERUIDGID) --name $(CONTNAME) \
-		--mount type=bind,source=$(SRCDIR),target=/build \
-		$(CONTNAME)-img \
-		make -C /build TARGET=$(TARGET) coreboot/build/coreboot.rom 
+	$(DOCKER_RUN) TARGET=$(TARGET) coreboot/build/coreboot.rom 
 
 	cp coreboot/build/coreboot.rom raw_firmware.rom
 	
