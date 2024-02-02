@@ -28,7 +28,7 @@ build-nitropc:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
-    - lxc
+    - docker
   stage: build
   script:
     - make docker-image
