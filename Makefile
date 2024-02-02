@@ -47,6 +47,11 @@ docker-image: Dockerfile
 	docker build -t $(CONTNAME)-img .
 	touch $@
 
+upload-docker-image:
+	docker image tag $(CONTNAME)-img registry.git.nitrokey.com/nitrokey/coreboot-builder:latest
+	docker login registry.git.nitrokey.com
+	docker push registry.git.nitrokey.com/nitrokey/coreboot-builder:latest
+
 blobs:
 	git clone https://github.com/Nitrokey/firmware-blobs.git blobs
 .PHONY: blobs-update

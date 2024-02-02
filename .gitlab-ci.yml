@@ -29,6 +29,7 @@ build-nitropc:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
     - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
   stage: build
   script:
     - make docker-image
@@ -43,7 +44,8 @@ build-nitrowall-pro:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
-    - lxc
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
   stage: build
   script:
     - make docker-image
@@ -58,7 +60,8 @@ build-nitropad-nv41:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
-    - lxc
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
   stage: build
   script:
     - make docker-image
@@ -73,7 +76,8 @@ build-nitropad-ns50:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
-    - lxc
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
   stage: build
   script:
     - make docker-image
@@ -88,7 +92,8 @@ build-nitrowall:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
-    - lxc
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
   stage: build
   script:
     - make docker-image
