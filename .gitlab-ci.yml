@@ -28,11 +28,11 @@ build-nitropc:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
-    - lxc
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
   stage: build
   script:
-    - make docker-image
-    - make nitropc
+    - make nitropc SKIP_DOCKER=true
     - mkdir -p artifacts
     - cp firmware-nitropc.rom artifacts/
   artifacts:
@@ -43,11 +43,11 @@ build-nitrowall-pro:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
-    - lxc
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
   stage: build
   script:
-    - make docker-image
-    - make nitrowall-pro
+    - make nitrowall-pro SKIP_DOCKER=true
     - mkdir -p artifacts
     - cp firmware-nitrowall-pro.rom artifacts/
   artifacts:
@@ -58,11 +58,11 @@ build-nitropad-nv41:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
-    - lxc
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
   stage: build
   script:
-    - make docker-image
-    - make nitropad-nv41
+    - make nitropad-nv41 SKIP_DOCKER=true
     - mkdir -p artifacts
     - cp firmware-nitropad-nv41.rom artifacts/
   artifacts:
@@ -73,11 +73,11 @@ build-nitropad-ns50:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
-    - lxc
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
   stage: build
   script:
-    - make docker-image
-    - make nitropad-ns50
+    - make nitropad-ns50 SKIP_DOCKER=true
     - mkdir -p artifacts
     - cp firmware-nitropad-ns50.rom artifacts/
   artifacts:
@@ -88,11 +88,11 @@ build-nitrowall:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   tags:
-    - lxc
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
   stage: build
   script:
-    - make docker-image
-    - make nitrowall
+    - make nitrowall SKIP_DOCKER=true
     - mkdir -p artifacts
     - cp firmware-nitrowall.rom artifacts/
   artifacts:
