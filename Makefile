@@ -33,10 +33,12 @@ endif
 all: 
 	@echo "no default target"
 	@echo "choose any of: "
-	@echo "  nitropc, nitrowall, nitrowall-pro, nitropad-nv41, nitropad-ns50"
+	@echo "  nitropc, nitrowall, nitrowall-pro, nitropad-nv41, nitropad-ns50, nitropc-v2"
 
 nitropc:
 	$(MAKE) TARGET=nitropc firmware-nitropc.rom	
+nitropc-v2:
+	$(MAKE) TARGET=nitropc-v2 firmware-nitropc-v2.rom	
 nitrowall:
 	$(MAKE) TARGET=nitrowall firmware-nitrowall.rom	
 nitrowall-pro:
@@ -59,6 +61,19 @@ docker-image: Dockerfile
 	docker build -t $(CONTNAME)-img .
 	touch $@
 
+docker-enter:
+	-docker rm coreboot-builder
+	docker run -it $(DOCKERUIDGUID) --name $(CONTNAME) \
+		--mount type=bind,source=$(SRCDIR),target=/build \
+		$(CONTNAME)-img bash
+
+docker-run:
+	-docker rm coreboot-builder
+	docker run -it $(DOCKERUIDGUID) --name $(CONTNAME) \
+		--mount type=bind,source=$(SRCDIR),target=/build \
+		$(CONTNAME)-img $(CMD)
+
+
 upload-docker-image:
 	docker image tag $(CONTNAME)-img registry.git.nitrokey.com/nitrokey/coreboot-builder:latest
 	docker login registry.git.nitrokey.com
@@ -75,7 +90,8 @@ raw_firmware.rom: coreboot/configs/defconfig blobs-update
 
 	make -C coreboot defconfig
 
-	$(DOCKER_RUN) TARGET=$(TARGET) coreboot/build/coreboot.rom 
+	-docker rm coreboot-builder
+	$(DOCKER_RUN) TARGET=$(TARGET) V=1 coreboot/build/coreboot.rom 
 
 	cp coreboot/build/coreboot.rom raw_firmware.rom
 	
