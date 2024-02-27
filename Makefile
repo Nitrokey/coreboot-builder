@@ -91,7 +91,9 @@ raw_firmware.rom: coreboot/configs/defconfig blobs-update
 	make -C coreboot defconfig
 
 	-docker rm coreboot-builder
-	$(DOCKER_RUN) TARGET=$(TARGET) V=1 coreboot/build/coreboot.rom 
+	# for debug outputs:
+	#$(DOCKER_RUN) TARGET=$(TARGET) V=1 coreboot/build/coreboot.rom 
+	$(DOCKER_RUN) TARGET=$(TARGET) coreboot/build/coreboot.rom 
 
 	cp coreboot/build/coreboot.rom raw_firmware.rom
 	
