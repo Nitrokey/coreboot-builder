@@ -39,6 +39,21 @@ build-nitropc:
     paths:
       - artifacts
 
+build-nitropc-v2:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+  tags:
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
+  stage: build
+  script:
+    - make nitropc-v2 SKIP_DOCKER=true
+    - mkdir -p artifacts
+    - cp firmware-nitropc-v2.rom artifacts/
+  artifacts:
+    paths:
+      - artifacts
+
 build-nitrowall-pro:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
