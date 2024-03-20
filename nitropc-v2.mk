@@ -8,6 +8,7 @@ coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/configs/defconfig 
 	cp cmos.default coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/
 	cp cmos.layout coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/
 	cp blobs/nitropc/*	coreboot/
+	cp variant.asl coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/include/variant/acpi/
 	cp -r blobs/common coreboot/common-blobs
 	
 	make -C coreboot CPUS=$(CPU_COUNT)
