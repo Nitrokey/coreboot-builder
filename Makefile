@@ -110,6 +110,8 @@ coreboot:
 	cd coreboot && \
 		git remote add dasharo $(COREBOOT_DASHARO) && \
 		git fetch dasharo && \
+		git fetch dasharo --tags -f && \
+		git fetch origin --tags -f && \
 		git fetch origin 
 
 
