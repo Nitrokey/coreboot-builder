@@ -5,11 +5,14 @@ coreboot/build/coreboot.rom: coreboot/bootsplash.bmp coreboot/configs/defconfig 
 	rm coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/overridetree.cb
 	cp devicetree-v2.cb coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/overridetree.cb
 	cp gpio.c coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/gpio.c
+	cp nitropc-v2-mainboard.c coreboot/src/mainboard/purism/librem_cnl/mainboard.c
+	cp nitropc-v2-Kconfig coreboot/src/mainboard/purism/librem_cnl/Kconfig
 	cp cmos.default coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/
 	cp cmos.layout coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/
 	cp blobs/nitropc/*	coreboot/
-	cp variant.asl coreboot/src/mainboard/purism/librem_cnl/variants/librem_mini/include/variant/acpi/
 	cp -r blobs/common coreboot/common-blobs
-	
+
+# Run defconfig again after overriding mainbaord's Kconfig file
+	make -C coreboot defconfig
 	make -C coreboot CPUS=$(CPU_COUNT)
 
