@@ -19,4 +19,15 @@ CONFIG_EDK2_BOOT_MANAGER_ESCAPE=y
 CONFIG_EDK2_CBMEM_LOGGING=y
 CONFIG_EDK2_FOLLOW_BGRT_SPEC=y
 
+
+CONFIG_EDK2_BOOTSPLASH_FILE="bootsplash.jpg"
+
+#CONFIG_BOOTSPLASH_IMAGE=y                                                                            
+#CONFIG_BOOTSPLASH_FILE="bootsplash.jpg"                                                  
+#CONFIG_BOOTSPLASH_CONVERT=y                                                                          
+#CONFIG_BOOTSPLASH_CONVERT_QUALITY="90"
+#CONFIG_BOOTSPLASH_CONVERT_RESIZE=y                                                                   
+#CONFIG_BOOTSPLASH_CONVERT_RESOLUTION="1920x1080"       
+
+
 #CONFIG_TIANOCORE_BOOTSPLASH_IMAGE=y
