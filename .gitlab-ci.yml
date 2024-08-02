@@ -113,3 +113,34 @@ build-nitrowall:
   artifacts:
     paths:
       - artifacts
+
+build-nitropad-v54:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+  tags:
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
+  stage: build
+  script:
+    - make nitropad-v54 SKIP_DOCKER=true
+    - mkdir -p artifacts
+    - cp firmware-nitropad-v54.rom artifacts/
+  artifacts:
+    paths:
+      - artifacts
+
+
+build-nitropad-v56:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+  tags:
+    - docker
+  image: $CI_REGISTRY/nitrokey/coreboot-builder:latest
+  stage: build
+  script:
+    - make nitropad-v56 SKIP_DOCKER=true
+    - mkdir -p artifacts
+    - cp firmware-nitropad-v56.rom artifacts/
+  artifacts:
+    paths:
+      - artifacts

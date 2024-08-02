@@ -33,7 +33,7 @@ endif
 all: 
 	@echo "no default target"
 	@echo "choose any of: "
-	@echo "  nitropc, nitrowall, nitrowall-pro, nitropad-nv41, nitropad-ns50, nitropc-v2"
+	@echo "  nitropc, nitrowall, nitrowall-pro, nitropad-nv41, nitropad-ns50, nitropc-v2, nitropad-v54, nitropad-v56"
 
 nitropc:
 	$(MAKE) TARGET=nitropc firmware-nitropc.rom	
@@ -47,6 +47,12 @@ nitropad-nv41:
 	$(MAKE) TARGET=nitropad-nv41 firmware-nitropad-nv41.rom	
 nitropad-ns50:
 	$(MAKE) TARGET=nitropad-ns50 firmware-nitropad-ns50.rom	
+nitropad-v54:
+	$(MAKE) TARGET=nitropad-v54 firmware-nitropad-v54.rom	
+nitropad-v56:
+	$(MAKE) TARGET=nitropad-v56 firmware-nitropad-v56.rom	
+
+
 
 coreboot/configs/defconfig: coreboot-update $(TARGET)-defconfig
 	cp $(TARGET)-defconfig coreboot/configs/defconfig
