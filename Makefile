@@ -16,7 +16,8 @@ DOCKERUIDGID = --user $(shell id -u):$(shell id -g)
 COREBOOT_ORIGIN = https://review.coreboot.org/coreboot
 COREBOOT_DASHARO = https://github.com/Dasharo/coreboot.git
 
-BLOBS_COMMIT = cba08e83d8bbd7d3470769afd7dbc8e61d6cd8b5
+#BLOBS_COMMIT = cba08e83d8bbd7d3470769afd7dbc8e61d6cd8b5
+BLOBS_COMMIT = 3ce843844add9b4a8c5e142c798b053621b8daeb
 
 ##
 ## switch mechanism for with or without docker 
